@@ -24,6 +24,9 @@ public class Product {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(nullable = false)
+    private Integer quantity;
+
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
@@ -70,6 +73,13 @@ public class Product {
     }
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
     public Supplier getSupplier() {
         return supplier;

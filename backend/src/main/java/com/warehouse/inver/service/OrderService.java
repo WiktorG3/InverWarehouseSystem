@@ -1,5 +1,6 @@
 package com.warehouse.inver.service;
 
+import com.warehouse.inver.dto.order.OrderItemRequest;
 import com.warehouse.inver.model.Customer;
 import com.warehouse.inver.model.Order;
 import com.warehouse.inver.model.OrderItem;
@@ -11,7 +12,6 @@ import com.warehouse.inver.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,11 +20,13 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
+    private final CustomerRepository customerRepository;
 
-    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductRepository productRepository) {
+    public OrderService(OrderRepository orderRepository, OrderItemRepository orderItemRepository, ProductRepository productRepository, CustomerRepository customerRepository) {
         this.orderRepository = orderRepository;
         this.orderItemRepository = orderItemRepository;
         this.productRepository = productRepository;
+        this.customerRepository = customerRepository;
     }
 
     public Order getOrderById(Long id){
@@ -36,33 +38,42 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order createOrder(List<Long> productIds, List<Integer> quantities){
+    public Order createOrder(Long customerId, List<OrderItemRequest> orderItems){
         Order order = new Order();
         order.setOrderNumber(generateOrderNumber());
         order.setOrderDate(LocalDateTime.now());
         order.setOrderStatus("NEW");
         order.setOrderAmount(BigDecimal.ZERO);
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found"));
+        order.setCustomer(customer);
         orderRepository.save(order);
 
         BigDecimal total = BigDecimal.ZERO;
-        for(int i = 0; i < productIds.size(); i++){
-            Long productId = productIds.get(i);
-            Integer quantity = quantities.get(i);
 
-            Product product = productRepository.findById(productId)
+        for (OrderItemRequest itemRequest : orderItems) {
+            Product product = productRepository.findById(itemRequest.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
-            BigDecimal price = product.getPrice();
+            if (product.getQuantity() < itemRequest.getQuantity()) {
+                throw new RuntimeException("Insufficient stock for product: " + product.getName());
+            }
+
             OrderItem item = new OrderItem();
             item.setOrder(order);
             item.setProduct(product);
-            item.setQuantity(quantity);
-            item.setUnitPrice(price);
+            item.setQuantity(itemRequest.getQuantity());
+            item.setUnitPrice(product.getPrice());
             orderItemRepository.save(item);
 
-            BigDecimal lineTotal = price.multiply(BigDecimal.valueOf(quantity));
+            BigDecimal lineTotal = product.getPrice().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
             total = total.add(lineTotal);
+
+            product.setQuantity(product.getQuantity() - itemRequest.getQuantity());
+            productRepository.save(product);
         }
+
         order.setOrderAmount(total);
         return orderRepository.save(order);
     }
