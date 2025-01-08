@@ -1,28 +1,23 @@
 import React from 'react';
-import axios from 'axios';
 import LoginForm from '../components/LoginForm';
-import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
-    const navigate = useNavigate();
-
-    const handleLogin = async (credentials) => {
-        try {
-            const response = await axios.post('http://localhost:8080/api/users/login', credentials);
-            console.log('Login successful:', response.data);
-
-            localStorage.setItem('token', response.data.token);
-
-            navigate('/dashboard');
-        } catch (error) {
-            console.error('Login failed:', error.response.data);
-        }
-    };
-
     return (
-        <div>
-            <h1>Login</h1>
-            <LoginForm onSubmit={handleLogin} />
+        <div className="container">
+            <div className="left-side">
+                <div className="form">
+                    <h1 className="title">Login to your account</h1>
+                    <LoginForm />
+                    <p className="signup-link">Don't have an account? <a href="/register">Sign up now!</a></p>
+                </div>
+            </div>
+
+            <div className="right-side">
+                <div className="login-content">
+                    <h1>INV<span>er</span></h1>
+                    <p>Your one stop solution for inventory management</p>
+                </div>
+            </div>
         </div>
     );
 };

@@ -1,0 +1,157 @@
+.container{
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f5f5
+}
+
+.left-side{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.right-side{
+    flex: 1;
+    background: linear-gradient(135deg, #a046c1 15%, #401d95 100%);
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+
+}
+
+.form{
+    width: 100%;
+    max-width: 400px;
+}
+
+.title{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #401d95;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.input-group label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+}
+
+.input-group input {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #6b46c1;
+    box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+}
+
+.options {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4b5563;
+    font-size: 0.875rem;
+}
+
+.forgot-passwd{
+    color: #6b46c1;
+    font-size: 0.875rem;
+    text-decoration: none;
+}
+.forgot-passwd:hover {
+    text-decoration: underline;
+}
+
+.login-button {
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: #6b46c1;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #5b3d9f;
+}
+
+.signup-link{
+    margin-top: 1rem;
+    text-align: center;
+    color: #4b5563;
+    font-size: 0.875rem;
+}
+
+.signup-link a{
+    text-decoration: none;
+    color: #6b46c1;
+    font-weight: 500;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.login-content{
+    text-align: center;
+}
+.login-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    color: #FFE30C;
+    margin-bottom: 1rem;
+}
+
+.login-content h1 span {
+    font-size: 3.5rem;
+    color: white;
+    font-style: italic;
+}
+.login-content p {
+    font-size: 1.5rem;
+    opacity: 0.9;
+}
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .right-side {
+        display: none;
+    }
+
+    .left-side {
+        padding: 1.5rem;
+    }
+}
