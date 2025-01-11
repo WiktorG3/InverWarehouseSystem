@@ -35,7 +35,7 @@
     color: #401d95;
 }
 
-.login-form {
+.register-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -66,13 +66,11 @@
     border-color: #6b46c1;
     box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
 }
-
 .password-input-wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
-
 .password-input-wrapper input {
     width: 100%;
     padding-right: 40px;
@@ -89,34 +87,18 @@
     color: #6a11cb;
     outline: none;
 }
-
 .toggle-password:hover {
     color: #2575fc;
 }
+
 .options {
     display: flex;
     justify-content:space-between;
     align-items: center;
 }
 
-.remember-me {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #4b5563;
-    font-size: 0.875rem;
-}
 
-.forgot-passwd{
-    color: #6b46c1;
-    font-size: 0.875rem;
-    text-decoration: none;
-}
-.forgot-passwd:hover {
-    text-decoration: underline;
-}
-
-.login-button {
+.register-button {
     padding: 0.75rem;
     border-radius: 0.5rem;
     background-color: #6b46c1;
@@ -128,43 +110,43 @@
     transition: background-color 0.2s;
 }
 
-.login-button:hover {
+.register-button:hover {
     background-color: #5b3d9f;
 }
 
-.signup-link{
+.login-link{
     margin-top: 1rem;
     text-align: center;
     color: #4b5563;
     font-size: 0.875rem;
 }
 
-.signup-link a{
+.login-link a{
     text-decoration: none;
     color: #6b46c1;
     font-weight: 500;
 }
 
-.signup-link a:hover {
+.login-link a:hover {
     text-decoration: underline;
 }
 
-.login-content{
+.register-content{
     text-align: center;
 }
-.login-content h1 {
+.register-content h1 {
     font-size: 4rem;
     font-weight: 700;
     color: #FFE30C;
     margin-bottom: 1rem;
 }
 
-.login-content h1 span {
+.register-content h1 span {
     font-size: 3.5rem;
     color: white;
     font-style: italic;
 }
-.login-content p {
+.register-content p {
     font-size: 1.5rem;
     opacity: 0.9;
 }
@@ -180,4 +162,15 @@
     .left-side {
         padding: 1.5rem;
     }
+}
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: -10px;
+}
+
+.success-message {
+    color: green;
+    font-size: 0.9rem;
+    margin-top: -10px;
 }

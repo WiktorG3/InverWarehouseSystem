@@ -6,7 +6,11 @@ const LoginForm = ({ onSubmit }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:8080/api/users/login', { username, password })
@@ -39,27 +43,37 @@ const LoginForm = ({ onSubmit }) => {
 
             <div className="input-group">
                 <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-            </div>
+                    <div className="password-input-wrapper">
+                        <input
+                            type={showPassword ? 'text' : 'password'}
+                            id="password"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                        <button
+                            type="button"
+                            className="toggle-password"
+                            onClick={handleTogglePassword}
+                            aria-label="Toggle password visibility"
+                        >
+                            {showPassword ? '🙈' : '👁️'}
+                        </button>
+                    </div>
+                </div>
 
-            <div className="options">
-                <label className="remember-me">
-                    <input type="checkbox" />
-                    <span>Remember me</span>
-                </label>
-                <a href="/forgot-password" className="forgot-passwd">Forgot Password?</a>
-            </div>
+                <div className="options">
+                    <label className="remember-me">
+                        <input type="checkbox"/>
+                        <span>Remember me</span>
+                    </label>
+                    <a href="/forgot-password" className="forgot-passwd">Forgot Password?</a>
+                </div>
 
-            <button type="submit" className="login-button">Login</button>
+                <button type="submit" className="login-button">Login</button>
         </form>
-    );
+);
 };
 
 export default LoginForm;
