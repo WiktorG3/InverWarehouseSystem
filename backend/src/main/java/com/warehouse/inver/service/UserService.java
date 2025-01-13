@@ -25,8 +25,8 @@ public class UserService {
         return null;
     }
 
-    public User createUser(String username, String password, String email, String firstName, String lastName, String role) {
-        User user = new User(username, passwordEncoder.encode(password), email, firstName, lastName, role);
+    public User register(String username, String password, String email, String firstName, String lastName) {
+        User user = new User(username, passwordEncoder.encode(password), email, firstName, lastName);
         return userRepository.save(user);
     }
 }

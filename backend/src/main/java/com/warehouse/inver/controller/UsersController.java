@@ -22,4 +22,15 @@ public class UsersController {
     public User login(@RequestBody User user){
         return userService.login(user.getUsername(), user.getPassword());
     }
+
+    @PostMapping("/register")
+    public User register(@RequestBody User user){
+        return userService.register(
+                user.getUsername(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName()
+        );
+    }
 }

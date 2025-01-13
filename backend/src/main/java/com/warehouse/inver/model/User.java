@@ -25,17 +25,13 @@ public class User {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
-    private String role;
-
     public User(){}
-    public User(String username, String password, String email, String firstName, String lastName, String role) {
+    public User(String username, String password, String email, String firstName, String lastName) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.role = role;
     }
     public Long getId() {
         return id;
@@ -73,11 +69,4 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    public String getRole() {
-        return role;
-    }
-    public void setRole(String role) {
-        this.role = role;
-    }
-
 }
