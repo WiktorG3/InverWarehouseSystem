@@ -15,12 +15,12 @@ const LoginForm = ({ onSubmit }) => {
         e.preventDefault();
         axios.post('http://localhost:8080/api/users/login', { username, password })
             .then(response => {
-             if(response.data){
-                localStorage.setItem('token', response.data.token);
-                window.location.href = '/dashboard';
-            }else{
-                setError('Invalid username or password');
-            }
+                if(response.data.token){
+                    localStorage.setItem('token', response.data.token);
+                    window.location.href = '/dashboard';
+                }else{
+                    setError('Invalid username or password');
+                }
             })
             .catch(error => {
                 setError('An error occurred while logging in');

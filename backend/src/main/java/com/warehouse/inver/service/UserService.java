@@ -19,9 +19,15 @@ public class UserService {
 
     public User login(String username, String password) {
         User user = userRepository.findByUsername(username).orElse(null);
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            return user;
+        if (user != null) {
+            System.out.println("Użytkownik znaleziony: " + username);
+            System.out.println("Zakodowane hasło w bazie: " + user.getPassword());
+            System.out.println("Hasło pasuje: " + passwordEncoder.matches(password, user.getPassword()));
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
         }
+        System.out.println("Użytkownik nie został znaleziony lub hasło jest nieprawidłowe.");
         return null;
     }
 
