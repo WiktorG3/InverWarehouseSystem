@@ -6,6 +6,7 @@ import DashboardPage from './pages/DashboardPage';
 import ProductPage from './pages/ProductPage';
 import PrivateRoute from './components/PrivateRoute';
 import axios from "axios";
+import OrderPage from "./pages/OrderPage";
 
 const App = () => {
     useEffect(() => {
@@ -27,7 +28,8 @@ const App = () => {
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/dashboard" element={<PrivateRoute><DashboardPage /></PrivateRoute>} />
-                <Route path="/product" element={<ProductPage />} />
+                <Route path="/product" element={<PrivateRoute><ProductPage /></PrivateRoute>} />
+                <Route path="/order" element={<PrivateRoute><OrderPage /></PrivateRoute>} />
             </Routes>
         </Router>
     );

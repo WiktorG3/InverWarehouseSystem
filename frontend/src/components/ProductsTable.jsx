@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ProductsTable = ({ products, onEdit, onDelete }) => {
-    if (!Array.isArray(products)) {
+    if (!Array.isArray(products) || products.length === 0) {
         return <div>No products available</div>;
     }
 
