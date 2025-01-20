@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -18,21 +20,21 @@ public class UserService {
     }
 
     public User login(String username, String password) {
-        User user = userRepository.findByUsername(username).orElse(null);
-        if (user != null) {
-            System.out.println("Użytkownik znaleziony: " + username);
-            System.out.println("Zakodowane hasło w bazie: " + user.getPassword());
-            System.out.println("Hasło pasuje: " + passwordEncoder.matches(password, user.getPassword()));
-            if (passwordEncoder.matches(password, user.getPassword())) {
-                return user;
-            }
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid username"));
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid password");
         }
-        System.out.println("Użytkownik nie został znaleziony lub hasło jest nieprawidłowe.");
-        return null;
+
+        return user;
     }
 
     public User register(String username, String password, String email, String firstName, String lastName) {
         User user = new User(username, passwordEncoder.encode(password), email, firstName, lastName);
         return userRepository.save(user);
+    }
+
+    public boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
 }

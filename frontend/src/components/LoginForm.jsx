@@ -11,20 +11,22 @@ const LoginForm = ({ onSubmit }) => {
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axios.post('http://localhost:8080/api/users/login', { username, password })
-            .then(response => {
-                if(response.data.token){
-                    localStorage.setItem('token', response.data.token);
-                    window.location.href = '/dashboard';
-                }else{
-                    setError('Invalid username or password');
-                }
-            })
-            .catch(error => {
+        try {
+            const response = await axios.post('http://localhost:8080/api/users/login', {username, password});
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token);
+                window.location.href = '/dashboard';
+            }
+        } catch(error) {
+            if (error.response && error.response.status === 401) {
+                setError(error.response.data);
+            }
+            else {
                 setError('An error occurred while logging in');
-            });
+            }
+        }
     };
 
     return (
@@ -62,6 +64,7 @@ const LoginForm = ({ onSubmit }) => {
                         </button>
                     </div>
                 </div>
+                {error && <p className="error">{error}</p>}
 
                 <div className="options">
                     <label className="remember-me">

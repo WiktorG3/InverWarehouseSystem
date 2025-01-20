@@ -168,6 +168,15 @@
     font-size: 1.5rem;
     opacity: 0.9;
 }
+.error{
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+iframe
+{
+    display: none;
+}
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
