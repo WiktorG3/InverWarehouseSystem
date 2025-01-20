@@ -8,7 +8,7 @@ const Sidebar = () => {
             <h1 className="logo">INV<span>er</span></h1>
             <ul className="menu">
                 <li><a href="/dashboard"><FaThLarge className="icon" />Dashboard</a></li>
-                <li><a href="/products"><FaBox className="icon" />Products</a></li>
+                <li><a href="/product"><FaBox className="icon" />Products</a></li>
                 <li><a href="/orders"><FaShoppingCart className="icon" />Orders</a></li>
                 <li><a href="/customers"><FaUser className="icon" />Customers</a></li>
                 <li><a href="/suppliers"><FaTruck className="icon" />Suppliers</a></li>

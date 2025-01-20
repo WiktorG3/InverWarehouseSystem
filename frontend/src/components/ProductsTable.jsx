@@ -1,9 +1,14 @@
 import React from 'react';
 
-const ProductsTable = (products, onEdit, onDelete) => {
+const ProductsTable = ({ products, onEdit, onDelete }) => {
+    if (!Array.isArray(products)) {
+        return <div>No products available</div>;
+    }
+
     return (
-        <table className="products-table">
-            <thead>
+        <div className="table-container">
+            <table className="products-table">
+                <thead>
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -13,8 +18,8 @@ const ProductsTable = (products, onEdit, onDelete) => {
                     <th>Quantity</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {products.map((product) => (
                     <tr key={product.id}>
                         <td>{product.id}</td>
@@ -24,13 +29,18 @@ const ProductsTable = (products, onEdit, onDelete) => {
                         <td>{product.price.toFixed(2)}</td>
                         <td>{product.quantity}</td>
                         <td>
-                            <button onClick={() => onEdit(product)}>Edit</button>
-                            <button onClick={() => onDelete(product)}>Delete</button>
+                            <button className="action-btn" onClick={() => onEdit(product)}>
+                                <i className="fas fa-edit"></i>
+                            </button>
+                            <button className="action-btn" onClick={() => onDelete(product)}>
+                                <i className="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 ))}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     );
 };
 

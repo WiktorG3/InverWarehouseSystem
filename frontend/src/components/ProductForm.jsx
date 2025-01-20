@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const ProductForm = ({ onAddProduct, selectedProduct }) => {
+const ProductForm = ({ onAddProduct, onClose, selectedProduct }) => {
     const [formData, setFormData] = useState({
         name: '',
         category: '',
@@ -26,8 +26,8 @@ const ProductForm = ({ onAddProduct, selectedProduct }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onAddProduct(formData);
-    }
-
+        onClose();
+    };
 
     return (
     <div className="product-form">
