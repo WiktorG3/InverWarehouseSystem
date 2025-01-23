@@ -9,7 +9,9 @@ const OrderPage = () => {
     const[searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/orders')
+        axios.get('http://localhost:8080/api/orders', {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
             .then(response => setOrders(response.data))
             .catch(error => console.error(error));
     }, []);

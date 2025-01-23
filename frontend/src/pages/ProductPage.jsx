@@ -12,7 +12,9 @@ const ProductPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/product')
+        axios.get('http://localhost:8080/api/product', {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        })
             .then(response =>  setProducts(response.data))
             .catch(error => console.error(error));
     }, []);
