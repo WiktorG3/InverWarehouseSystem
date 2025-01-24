@@ -10,7 +10,7 @@ const Sidebar = () => {
                 <li><a href="/dashboard"><FaThLarge className="icon" />Dashboard</a></li>
                 <li><a href="/product"><FaBox className="icon" />Products</a></li>
                 <li><a href="/order"><FaShoppingCart className="icon" />Orders</a></li>
-                <li><a href="/customers"><FaUser className="icon" />Customers</a></li>
+                <li><a href="/customer"><FaUser className="icon" />Customers</a></li>
                 <li><a href="/suppliers"><FaTruck className="icon" />Suppliers</a></li>
                 <li><a href="/reports"><FaChartLine className="icon" />Reports</a></li>
                 <li><a href="/administration"><FaLock className="icon" />Administration</a></li>
