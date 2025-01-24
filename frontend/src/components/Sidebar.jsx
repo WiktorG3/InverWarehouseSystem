@@ -11,9 +11,8 @@ const Sidebar = () => {
                 <li><a href="/product"><FaBox className="icon" />Products</a></li>
                 <li><a href="/order"><FaShoppingCart className="icon" />Orders</a></li>
                 <li><a href="/customer"><FaUser className="icon" />Customers</a></li>
-                <li><a href="/suppliers"><FaTruck className="icon" />Suppliers</a></li>
+                <li><a href="/supplier"><FaTruck className="icon" />Suppliers</a></li>
                 <li><a href="/reports"><FaChartLine className="icon" />Reports</a></li>
-                <li><a href="/administration"><FaLock className="icon" />Administration</a></li>
                 <li><a href="/settings"><FaCog className="icon" />Settings</a></li>
             </ul>
             <footer className="sidebar-footer">
