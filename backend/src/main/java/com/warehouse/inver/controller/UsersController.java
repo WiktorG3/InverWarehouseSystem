@@ -1,16 +1,18 @@
 package com.warehouse.inver.controller;
 
+import com.warehouse.inver.dto.user.UserRequest;
+import com.warehouse.inver.dto.user.UserResponse;
 import com.warehouse.inver.model.AuthResponse;
 import com.warehouse.inver.model.User;
 import com.warehouse.inver.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.warehouse.inver.security.JwtUtil;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -40,5 +42,42 @@ public class UsersController {
                 user.getFirstName(),
                 user.getLastName()
         );
+    }
+
+    @GetMapping
+    public ResponseEntity<UserResponse> getUserDetails(@RequestHeader("Authorization") String token) {
+        String username = jwtUtil.extractUsername(token.substring(7));
+        User user = userService.getUserByUsername(username);
+
+        UserResponse response = new UserResponse(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail()
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<UserResponse> updateUser(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> updates) {
+        String username = jwtUtil.extractUsername(token.substring(7));
+        User updatedUser = userService.updateUserByFields(username, updates);
+
+        UserResponse response = new UserResponse(
+                updatedUser.getId(),
+                updatedUser.getUsername(),
+                updatedUser.getFirstName(),
+                updatedUser.getLastName(),
+                updatedUser.getEmail()
+        );
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteUser(@RequestHeader("Authorization") String token) {
+        String username = jwtUtil.extractUsername(token.substring(7));
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.ok("Account deleted successfully.");
     }
 }

@@ -10,6 +10,7 @@ import OrderPage from "./pages/OrderPage";
 import CustomerPage from "./pages/CustomerPage";
 import SupplierPage from "./pages/SupplierPage";
 import ReportsPage from "./pages/ReportsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 const App = () => {
     useEffect(() => {
@@ -36,7 +37,7 @@ const App = () => {
                 <Route path="/customer" element={<PrivateRoute><CustomerPage /></PrivateRoute>} />
                 <Route path="/supplier" element={<PrivateRoute><SupplierPage /></PrivateRoute>} />
                 <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
-
+                <Route path="/settings" element={<PrivateRoute><SettingsPage /></PrivateRoute>} />
             </Routes>
         </Router>
     );
