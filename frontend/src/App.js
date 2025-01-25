@@ -9,6 +9,7 @@ import PrivateRoute from './components/PrivateRoute';
 import OrderPage from "./pages/OrderPage";
 import CustomerPage from "./pages/CustomerPage";
 import SupplierPage from "./pages/SupplierPage";
+import ReportsPage from "./pages/ReportsPage";
 
 const App = () => {
     useEffect(() => {
@@ -35,7 +36,7 @@ const App = () => {
                 <Route path="/customer" element={<PrivateRoute><CustomerPage /></PrivateRoute>} />
                 <Route path="/supplier" element={<PrivateRoute><SupplierPage /></PrivateRoute>} />
                 <Route path="/reports" element={<PrivateRoute><ReportsPage /></PrivateRoute>} />
-                
+
             </Routes>
         </Router>
     );

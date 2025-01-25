@@ -13,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderService {
@@ -92,5 +94,25 @@ public class OrderService {
     private String generateOrderNumber(){
         long count = orderRepository.count() + 1;
         return "ORDER-" + LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonth() + "-" + count;
+    }
+
+    public List<Map<String, Object>> getOrdersByStatus() {
+        return orderRepository.findOrderCountByStatus().stream()
+                .map(row -> {
+                    Map<String, Object> result = new HashMap<>();
+                    result.put("status", row[0]);
+                    result.put("count", row[1]);
+                    return result;
+                }).toList();
+    }
+
+    public List<Map<String, Object>> getMonthlyOrders() {
+        return orderRepository.findMonthlyOrders().stream()
+                .map(row -> {
+                    Map<String, Object> result = new HashMap<>();
+                    result.put("month", (String) row[0]);
+                    result.put("count", (Long) row[1]);
+                    return result;
+                }).toList();
     }
 }
