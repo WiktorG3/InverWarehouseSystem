@@ -3,6 +3,7 @@ import axios from 'axios';
 import CustomersTable from '../components/CustomersTable';
 import Sidebar from '../components/Sidebar';
 import '../styles/CustomerPage.css';
+import Navbar from "../components/Navbar";
 
 const CustomerPage = () => {
     const[customers, setCustomers] = useState([]);
@@ -26,12 +27,16 @@ const CustomerPage = () => {
     return (
         <div className="customer-page-container">
             <Sidebar />
-            <div className="customer-page-content">
-                <div className="customer-page-header">
-                    <h1>Customers</h1>
-                    <input type="text" className="search-input" placeholder="Search by name..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <div className="main-page">
+                <Navbar />
+                <div className="customer-page-content">
+                    <div className="customer-page-header">
+                        <h1>Customers</h1>
+                        <input type="text" className="search-input" placeholder="Search by name..." value={searchTerm}
+                               onChange={(e) => setSearchTerm(e.target.value)}/>
+                    </div>
+                    <CustomersTable customers={filteredCustomers}/>
                 </div>
-                <CustomersTable customers={filteredCustomers} />
             </div>
         </div>
     );

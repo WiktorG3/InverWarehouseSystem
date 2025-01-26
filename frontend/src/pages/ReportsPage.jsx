@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../styles/ReportsPage.css';
+import Navbar from "../components/Navbar";
 
 const ReportsPage = () => {
     const [statusData, setStatusData] = useState([]);
@@ -26,51 +27,54 @@ const ReportsPage = () => {
 
     return (
         <div className="reports-page-container">
-            <Sidebar />
-            <div className="reports-page-content">
-                <h1>Reports</h1>
-                <h2>More soon</h2>
-                <div className="chart-container">
-                    <div className="chart">
-                        <h2>Orders by Status</h2>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <PieChart>
-                                <Pie
-                                    data={statusData}
-                                    cx="50%"
-                                    cy="50%"
-                                    dataKey="count"
-                                    nameKey="status"
-                                    innerRadius={50}
-                                    outerRadius={80}
-                                    fill="#8884d8"
-                                    paddingAngle={2}
-                                    label
-                                >
-                                    {statusData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
-                                    ))}
-                                </Pie>
-                            </PieChart>
-                        </ResponsiveContainer>
-                    </div>
+            <Sidebar/>
+            <div className="main-page">
+                <Navbar/>
+                <div className="reports-page-content">
+                    <h1>Reports</h1>
+                    <h2>More soon</h2>
+                    <div className="chart-container">
+                        <div className="chart">
+                            <h2>Orders by Status</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie
+                                        data={statusData}
+                                        cx="50%"
+                                        cy="50%"
+                                        dataKey="count"
+                                        nameKey="status"
+                                        innerRadius={50}
+                                        outerRadius={80}
+                                        fill="#8884d8"
+                                        paddingAngle={2}
+                                        label
+                                    >
+                                        {statusData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]}/>
+                                        ))}
+                                    </Pie>
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
 
 
-                    <div className="chart">
-                        <h2>Monthly Orders Summary</h2>
-                        <ResponsiveContainer width="100%" height={300}>
-                            <BarChart data={monthlyOrdersData}>
-                                <CartesianGrid strokeDasharray="3 3"/>
-                                <XAxis dataKey="month"/>
-                                <YAxis/>
-                                <Tooltip/>
-                                <Legend/>
-                                <Bar dataKey="count" fill="#8884d8"/>
-                            </BarChart>
-                        </ResponsiveContainer>
+                        <div className="chart">
+                            <h2>Monthly Orders Summary</h2>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={monthlyOrdersData}>
+                                    <CartesianGrid strokeDasharray="3 3"/>
+                                    <XAxis dataKey="month"/>
+                                    <YAxis/>
+                                    <Tooltip/>
+                                    <Legend/>
+                                    <Bar dataKey="count" fill="#8884d8"/>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
+
                 </div>
-
             </div>
         </div>
     );

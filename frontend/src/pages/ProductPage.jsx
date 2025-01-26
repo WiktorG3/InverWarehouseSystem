@@ -4,6 +4,7 @@ import ProductForm from "../components/ProductForm";
 import ProductsTable from "../components/ProductsTable";
 import '../styles/ProductPage.css';
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
 const ProductPage = () => {
     const [products, setProducts] = useState([]);
@@ -43,57 +44,60 @@ const ProductPage = () => {
 
     return (
         <div className="product-page-container">
-            <Sidebar />
-            <div className="product-page-content">
-                <div className="product-page-header">
-                    <div className="header-left">
-                        <span>All</span>
-                        <span>Categories</span>
-                    </div>
+            <Sidebar/>
+            <div className="main-page">
+                <Navbar/>
+                <div className="product-page-content">
+                    <div className="product-page-header">
+                        <div className="header-left">
+                            <span>All</span>
+                            <span>Categories</span>
+                        </div>
 
-                    <div className="header-right">
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Search by name..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button
-                            className="add-product-btn"
-                            onClick={() => {
-                                setSelectedProduct(null);
-                                setShowModal(true);
-                            }}
-                        >
-                            + Add New Item
-                        </button>
-                    </div>
-                </div>
-
-                <ProductsTable
-                    products={filteredProducts}
-                    onEdit={(product) => {
-                        setSelectedProduct(product);
-                        setShowModal(true);
-                    }}
-                    onDelete={handleDeleteProduct}
-                />
-
-                {showModal && (
-                    <div className="modal-overlay">
-                        <div className="modal-content">
-                            <button className="close-modal-btn" onClick={() => setShowModal(false)}>
-                                &times;
-                            </button>
-                            <ProductForm
-                                onAddProduct={handleAddProduct}
-                                onClose={() => setShowModal(false)}
-                                selectedProduct={selectedProduct}
+                        <div className="header-right">
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search by name..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
+                            <button
+                                className="add-product-btn"
+                                onClick={() => {
+                                    setSelectedProduct(null);
+                                    setShowModal(true);
+                                }}
+                            >
+                                + Add New Item
+                            </button>
                         </div>
                     </div>
-                )}
+
+                    <ProductsTable
+                        products={filteredProducts}
+                        onEdit={(product) => {
+                            setSelectedProduct(product);
+                            setShowModal(true);
+                        }}
+                        onDelete={handleDeleteProduct}
+                    />
+
+                    {showModal && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <button className="close-modal-btn" onClick={() => setShowModal(false)}>
+                                    &times;
+                                </button>
+                                <ProductForm
+                                    onAddProduct={handleAddProduct}
+                                    onClose={() => setShowModal(false)}
+                                    selectedProduct={selectedProduct}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import SupplierForm from "../components/SupplierForm";
 import SuppliersTable from "../components/SuppliersTable";
 import '../styles/SupplierPage.css';
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 
 const SupplierPage = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -43,57 +44,60 @@ const SupplierPage = () => {
 
     return (
         <div className="supplier-page-container">
-            <Sidebar />
-            <div className="supplier-page-content">
-                <div className="supplier-page-header">
-                    <div className="header-left">
-                        <span>All</span>
-                        <span>Categories</span>
-                    </div>
+            <Sidebar/>
+            <div className="main-page">
+                <Navbar/>
+                <div className="supplier-page-content">
+                    <div className="supplier-page-header">
+                        <div className="header-left">
+                            <span>All</span>
+                            <span>Categories</span>
+                        </div>
 
-                    <div className="header-right">
-                        <input
-                            type="text"
-                            className="search-input"
-                            placeholder="Search by name..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button
-                            className="add-supplier-btn"
-                            onClick={() => {
-                                setSelectedSupplier(null);
-                                setShowModal(true);
-                            }}
-                        >
-                            + Add New Item
-                        </button>
-                    </div>
-                </div>
-
-                <SuppliersTable
-                    suppliers={filteredSuppliers}
-                    onEdit={(supplier) => {
-                        setSelectedSupplier(supplier);
-                        setShowModal(true);
-                    }}
-                    onDelete={handleDeleteSupplier}
-                />
-
-                {showModal && (
-                    <div className="modal-overlay">
-                        <div className="modal-content">
-                            <button className="close-modal-btn" onClick={() => setShowModal(false)}>
-                                &times;
-                            </button>
-                            <SupplierForm
-                                onAddSupplier={handleAddSupplier}
-                                onClose={() => setShowModal(false)}
-                                selectedSupplier={selectedSupplier}
+                        <div className="header-right">
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search by name..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
                             />
+                            <button
+                                className="add-supplier-btn"
+                                onClick={() => {
+                                    setSelectedSupplier(null);
+                                    setShowModal(true);
+                                }}
+                            >
+                                + Add New Item
+                            </button>
                         </div>
                     </div>
-                )}
+
+                    <SuppliersTable
+                        suppliers={filteredSuppliers}
+                        onEdit={(supplier) => {
+                            setSelectedSupplier(supplier);
+                            setShowModal(true);
+                        }}
+                        onDelete={handleDeleteSupplier}
+                    />
+
+                    {showModal && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <button className="close-modal-btn" onClick={() => setShowModal(false)}>
+                                    &times;
+                                </button>
+                                <SupplierForm
+                                    onAddSupplier={handleAddSupplier}
+                                    onClose={() => setShowModal(false)}
+                                    selectedSupplier={selectedSupplier}
+                                />
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

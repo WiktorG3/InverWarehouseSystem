@@ -3,6 +3,7 @@ import axios from 'axios';
 import OrderTable from '../components/OrdersTable';
 import Sidebar from '../components/Sidebar';
 import '../styles/OrderPage.css';
+import Navbar from "../components/Navbar";
 
 const OrderPage = () => {
     const[orders, setOrders] = useState([]);
@@ -23,13 +24,17 @@ const OrderPage = () => {
 
     return (
         <div className="order-page-container">
-            <Sidebar />
-            <div className="order-page-content">
-                <div className="order-page-header">
-                    <h1>Orders</h1>
-                    <input type="text" className="search-input" placeholder="Search by number or status..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+            <Sidebar/>
+            <div className="main-page">
+                <Navbar/>
+                <div className="order-page-content">
+                    <div className="order-page-header">
+                        <h1>Orders</h1>
+                        <input type="text" className="search-input" placeholder="Search by number or status..."
+                               value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
+                    </div>
+                    <OrderTable orders={filteredOrders}/>
                 </div>
-                <OrderTable orders={filteredOrders} />
             </div>
         </div>
     );
