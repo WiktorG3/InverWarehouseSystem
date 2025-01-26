@@ -44,7 +44,6 @@
     border-radius: 10px;
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    margin-top: 1rem;
 }
 
 .customers-table {
@@ -59,7 +58,7 @@
 
 .customers-table th,
 .customers-table td {
-    padding: 0.75rem;
+    padding: 0.4rem;
     border-bottom: 1px solid #ddd;
     text-align: left;
 }

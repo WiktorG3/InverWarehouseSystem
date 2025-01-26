@@ -31,9 +31,20 @@ const CustomerPage = () => {
                 <Navbar />
                 <div className="customer-page-content">
                     <div className="customer-page-header">
-                        <h1>Customers</h1>
-                        <input type="text" className="search-input" placeholder="Search by name..." value={searchTerm}
-                               onChange={(e) => setSearchTerm(e.target.value)}/>
+                        <div className="header-left">
+                            <span>Customers</span>
+                            <span>Categories</span>
+                        </div>
+
+                        <div className="header-right">
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search by name..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
                     </div>
                     <CustomersTable customers={filteredCustomers}/>
                 </div>

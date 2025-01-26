@@ -29,9 +29,20 @@ const OrderPage = () => {
                 <Navbar/>
                 <div className="order-page-content">
                     <div className="order-page-header">
-                        <h1>Orders</h1>
-                        <input type="text" className="search-input" placeholder="Search by number or status..."
-                               value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}/>
+                        <div className="header-left">
+                            <span>Orders</span>
+                            <span>Categories</span>
+                        </div>
+
+                        <div className="header-right">
+                            <input
+                                type="text"
+                                className="search-input"
+                                placeholder="Search by number or status..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </div>
                     </div>
                     <OrderTable orders={filteredOrders}/>
                 </div>
