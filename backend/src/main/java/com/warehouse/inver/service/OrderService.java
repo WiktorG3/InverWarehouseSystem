@@ -12,10 +12,13 @@ import com.warehouse.inver.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -104,6 +107,11 @@ public class OrderService {
                     result.put("count", row[1]);
                     return result;
                 }).toList();
+    }
+
+    public List<Order> getOrdersByDate(LocalDate date) {
+        return orderRepository.findAll().stream()
+                .filter(order -> order.getOrderDate().toLocalDate().equals(date)).collect(Collectors.toList());
     }
 
     public List<Map<String, Object>> getMonthlyOrders() {
