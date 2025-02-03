@@ -30,9 +30,7 @@ public class DashboardController {
     public Map<String, Object> getDashboardData() {
         Map<String, Object> data = new HashMap<>();
         data.put("totalCustomers", customerService.getAllCustomers().size());
-        data.put("totalOrders", orderService.getAllOrders().stream()
-                .mapToDouble(order -> order.getOrderAmount().doubleValue())
-                .sum());
+        data.put("totalOrders", orderService.getTotalOrderAmount());
         data.put("totalProducts", productService.getAllProducts().size());
         data.put("todayOrders", orderService.getOrdersByDate(LocalDate.now()).size());
         return data;

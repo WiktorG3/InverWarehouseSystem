@@ -5,6 +5,9 @@ import com.warehouse.inver.dto.order.OrderItemResponse;
 import com.warehouse.inver.dto.order.OrderResponse;
 import com.warehouse.inver.model.Order;
 import com.warehouse.inver.service.OrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +23,17 @@ public class OrderController {
     }
 
     @GetMapping
-    public List<OrderResponse> getAllOrders() {
-        return orderService.getAllOrders()
-                            .stream()
-                .map(this::mapToOrderResponse)
-                .collect(Collectors.toList());
+    public Page<OrderResponse> getAllOrders(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String searchTerm) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Order> orders;
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            orders = orderService.searchOrders(searchTerm, pageable);
+        } else {
+            orders = orderService.getAllOrders(pageable);
+        }
+
+        return orders.map(this::mapToOrderResponse);
     }
 
     @GetMapping("/{id}")

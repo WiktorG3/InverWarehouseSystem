@@ -10,6 +10,8 @@ import com.warehouse.inver.repository.OrderItemRepository;
 import com.warehouse.inver.repository.OrderRepository;
 import com.warehouse.inver.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +40,17 @@ public class OrderService {
                 .orElseThrow(() -> new RuntimeException("Order not found"));
     }
 
-    public List<Order> getAllOrders(){
-        return orderRepository.findAll();
+    public Page<Order> getAllOrders(Pageable pageable){
+        return orderRepository.findAll(pageable);
+    }
+
+    public BigDecimal getTotalOrderAmount() {
+        return orderRepository.getTotalOrderAmount()
+                .orElse(BigDecimal.ZERO);
+    }
+
+    public Page<Order> searchOrders(String searchTerm, Pageable pageable) {
+        return orderRepository.searchOrders(searchTerm.toLowerCase(), pageable);
     }
 
     public Order createOrder(Long customerId, List<OrderItemRequest> orderItems){
