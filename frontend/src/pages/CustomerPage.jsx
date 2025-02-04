@@ -8,14 +8,24 @@ import Navbar from "../components/Navbar";
 const CustomerPage = () => {
     const[customers, setCustomers] = useState([]);
     const[searchTerm, setSearchTerm] = useState('');
+    const [page, setPage] = useState(0);
+    const [size] = useState(10);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/customers', {
+        fetchProducts();
+    }, [page, searchTerm]);
+
+    const fetchProducts = () => {
+        axios.get(`http://localhost:8080/api/customers?page=${page}&size=${size}&searchTerm=${searchTerm}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
-            .then(response => {console.log(response.data); setCustomers(response.data); })
+            .then(response => {
+                setCustomers(response.data.content);
+                setTotalPages(response.data.totalPages);
+            })
             .catch(error => console.error(error));
-    }, []);
+    };
 
     const filteredCustomers = Array.isArray(customers)
         ? customers.filter(customer =>
@@ -47,6 +57,11 @@ const CustomerPage = () => {
                         </div>
                     </div>
                     <CustomersTable customers={filteredCustomers}/>
+                    <div className="pagination">
+                        <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+                        <span>Page {page + 1} of {totalPages}</span>
+                        <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPages}>Next</button>
+                    </div>
                 </div>
             </div>
         </div>

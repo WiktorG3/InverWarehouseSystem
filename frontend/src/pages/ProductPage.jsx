@@ -11,14 +11,24 @@ const ProductPage = () => {
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [page, setPage] = useState(0);
+    const [size] = useState(10);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/product', {
+        fetchProducts();
+    }, [page, searchTerm]);
+
+    const fetchProducts = () => {
+        axios.get(`http://localhost:8080/api/products?page=${page}&size=${size}&searchTerm=${searchTerm}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
-            .then(response =>  setProducts(response.data))
+            .then(response => {
+                setProducts(response.data.content);
+                setTotalPages(response.data.totalPages);
+            })
             .catch(error => console.error(error));
-    }, []);
+    };
 
     const handleAddProduct = (product) => {
         axios.post('http://localhost:8080/api/product', product)
@@ -70,7 +80,10 @@ const ProductPage = () => {
                                 className="search-input"
                                 placeholder="Search by name..."
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={(e) => {
+                                    setSearchTerm(e.target.value);
+                                    setPage(0);
+                                }}
                             />
                         </div>
                     </div>
@@ -83,6 +96,11 @@ const ProductPage = () => {
                         }}
                         onDelete={handleDeleteProduct}
                     />
+                    <div className="pagination">
+                        <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+                        <span>Page {page + 1} of {totalPages}</span>
+                        <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPages}>Next</button>
+                    </div>
 
                     {showModal && (
                         <div className="modal-overlay">

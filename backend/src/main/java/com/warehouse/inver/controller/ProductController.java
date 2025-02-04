@@ -1,13 +1,18 @@
 package com.warehouse.inver.controller;
 
+import com.warehouse.inver.dto.order.OrderResponse;
+import com.warehouse.inver.model.Order;
 import com.warehouse.inver.model.Product;
 import com.warehouse.inver.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/product")
+@RequestMapping("/api/products")
 public class ProductController {
     private final ProductService productService;
 
@@ -16,8 +21,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public Page<Product> getAllProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String searchTerm) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return productService.searchProduct(searchTerm, pageable);
+        }
+        return productService.getAllProducts(pageable);
     }
 
     @PostMapping

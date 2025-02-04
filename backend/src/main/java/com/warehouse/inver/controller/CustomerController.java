@@ -1,7 +1,11 @@
 package com.warehouse.inver.controller;
 
 import com.warehouse.inver.model.Customer;
+import com.warehouse.inver.model.Product;
 import com.warehouse.inver.service.CustomerService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +20,13 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    public Page<Customer> getAllCustomers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String searchTerm) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return customerService.searchCustomer(searchTerm, pageable);
+        }
+        return customerService.getAllCustomers(pageable);
     }
 
     @PostMapping

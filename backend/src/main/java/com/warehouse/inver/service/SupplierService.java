@@ -1,7 +1,10 @@
 package com.warehouse.inver.service;
 
+import com.warehouse.inver.model.Product;
 import com.warehouse.inver.model.Supplier;
 import com.warehouse.inver.repository.SupplierRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +22,12 @@ public class SupplierService {
                 .orElseThrow(() -> new RuntimeException("Supplier not found"));
     }
 
-    public List<Supplier> getAllSuppliers(){
-        return supplierRepository.findAll();
+    public Page<Supplier> getAllSuppliers(Pageable pageable){
+        return supplierRepository.findAll(pageable);
+    }
+
+    public Page<Supplier> searchSupplier(String searchTerm, Pageable pageable) {
+        return supplierRepository.searchSupplier(searchTerm.toLowerCase(), pageable);
     }
 
     public Supplier createSupplier(Supplier supplier){

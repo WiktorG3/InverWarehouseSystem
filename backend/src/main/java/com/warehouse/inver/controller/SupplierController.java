@@ -1,7 +1,11 @@
 package com.warehouse.inver.controller;
 
+import com.warehouse.inver.model.Product;
 import com.warehouse.inver.model.Supplier;
 import com.warehouse.inver.service.SupplierService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +20,14 @@ public class SupplierController {
     }
 
     @GetMapping
-    public List<Supplier> getAllSuppliers() {
-        return supplierService.getAllSuppliers();
-    }
+    public Page<Supplier> getAllProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @RequestParam(required = false) String searchTerm) {
+        Pageable pageable = PageRequest.of(page, size);
 
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return supplierService.searchSupplier(searchTerm, pageable);
+        }
+        return supplierService.getAllSuppliers(pageable);
+    }
     @PostMapping
     public Supplier createSupplier(@RequestBody Supplier supplier) {
         return supplierService.createSupplier(supplier);

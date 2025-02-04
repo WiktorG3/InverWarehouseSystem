@@ -29,10 +29,13 @@ public class DashboardController {
     @GetMapping
     public Map<String, Object> getDashboardData() {
         Map<String, Object> data = new HashMap<>();
-        data.put("totalCustomers", customerService.getAllCustomers().size());
+
+        data.put("totalCustomers", customerService.getTotalCustomerCount());
         data.put("totalOrders", orderService.getTotalOrderAmount());
-        data.put("totalProducts", productService.getAllProducts().size());
+        data.put("totalProducts", productService.getTotalProductCount());
         data.put("todayOrders", orderService.getOrdersByDate(LocalDate.now()).size());
+
+
         return data;
     }
 }

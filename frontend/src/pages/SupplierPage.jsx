@@ -11,14 +11,24 @@ const SupplierPage = () => {
     const [selectedSupplier, setSelectedSupplier] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [page, setPage] = useState(0);
+    const [size] = useState(10);
+    const [totalPages, setTotalPages] = useState(1);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/api/supplier', {
+        fetchProducts();
+    }, [page, searchTerm]);
+
+    const fetchProducts = () => {
+        axios.get(`http://localhost:8080/api/supplier?page=${page}&size=${size}&searchTerm=${searchTerm}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         })
-            .then(response =>  setSuppliers(response.data))
+            .then(response => {
+                setSuppliers(response.data.content);
+                setTotalPages(response.data.totalPages);
+            })
             .catch(error => console.error(error));
-    }, []);
+    };
 
     const handleAddSupplier = (supplier) => {
         axios.post('http://localhost:8080/api/supplier', supplier)
@@ -82,6 +92,11 @@ const SupplierPage = () => {
                         }}
                         onDelete={handleDeleteSupplier}
                     />
+                    <div className="pagination">
+                        <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+                        <span>Page {page + 1} of {totalPages}</span>
+                        <button onClick={() => setPage(page + 1)} disabled={page + 1 >= totalPages}>Next</button>
+                    </div>
 
                     {showModal && (
                         <div className="modal-overlay">
