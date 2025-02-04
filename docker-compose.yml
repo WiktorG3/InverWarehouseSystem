@@ -4,39 +4,33 @@ services:
   db:
     image: postgres:17
     container_name: inver-db
-    # Adjust as needed, e.g. volumes, environment:
     environment:
       POSTGRES_DB: warehouse
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin
     ports:
       - "5432:5432"
-    # Persist data in a named volume (optional)
     volumes:
-      - dbdata:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
 
   backend:
     build:
-      context: ./backend       # Path to your Spring Boot backend folder
-      dockerfile: Dockerfile   # If your Dockerfile is named differently, change this
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: inver-backend
     ports:
       - "8080:8080"
     depends_on:
       - db
     environment:
-      # Override application.properties for Docker.
-      # Instead of "localhost", we use the service name "db".
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/warehouse
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: admin
-      # If you want to pass something else (e.g. profiles), you can do it here.
-      # SPRING_PROFILES_ACTIVE: docker
 
   frontend:
     build:
-      context: ./frontend      # Path to your React frontend folder
-      dockerfile: Dockerfile   # If your Dockerfile is named differently, change this
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: inver-frontend
     ports:
       - "3000:80"
@@ -44,4 +38,4 @@ services:
       - backend
 
 volumes:
-  dbdata:
+  data:
