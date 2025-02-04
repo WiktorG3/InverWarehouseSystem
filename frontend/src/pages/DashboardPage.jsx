@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { formatCurrency } from '../components/currencyUtils';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -65,7 +66,7 @@ const DashboardPage = () => {
                         </div>
                         <div className="card">
                             <h2>Total Sales</h2>
-                            <p className="stat">${dashboardData.totalOrders?.toFixed(2)}</p>
+                            <p className="stat">{formatCurrency(dashboardData.totalOrders)}</p>
                         </div>
                         <div className="card">
                             <h2>Products on Site</h2>
@@ -99,7 +100,7 @@ const DashboardPage = () => {
                                             paddingBottom: '0.5rem'
                                         }}>
                                             <strong>{order.orderNumber}</strong> –
-                                            ${Number(order.orderAmount).toFixed(2)} – {order.orderStatus} – {new Date(order.orderDate).toLocaleTimeString()}
+                                            {formatCurrency(order.orderAmount)} – {order.orderStatus} – {new Date(order.orderDate).toLocaleTimeString()}
                                         </li>
                                     ))}
                                 </ul>

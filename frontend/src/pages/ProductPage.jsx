@@ -60,8 +60,7 @@ const ProductPage = () => {
                 <div className="product-page-content">
                     <div className="product-page-header">
                         <div className="header-left">
-                            <span>All</span>
-                            <span>Categories</span>
+                            <span>Products</span>
                         </div>
 
 

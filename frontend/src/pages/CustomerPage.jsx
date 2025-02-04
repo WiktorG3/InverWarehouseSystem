@@ -43,7 +43,6 @@ const CustomerPage = () => {
                     <div className="customer-page-header">
                         <div className="header-left">
                             <span>Customers</span>
-                            <span>Categories</span>
                         </div>
 
                         <div className="header-right">

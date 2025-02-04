@@ -32,7 +32,6 @@ const ReportsPage = () => {
                 <Navbar/>
                 <div className="reports-page-content">
                     <h1>Reports</h1>
-                    <h2>More soon</h2>
                     <div className="chart-container">
                         <div className="chart">
                             <h2>Orders by Status</h2>

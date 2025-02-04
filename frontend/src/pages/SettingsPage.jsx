@@ -24,7 +24,8 @@ const SettingsPage = () => {
         })
         .then(response => {
             setUserData(response.data);
-            setCurrency(response.data.currency || 'USD');
+            const storedCurrency = localStorage.getItem('currency');
+            setCurrency(storedCurrency || response.data.currency || 'USD');
         })
         .catch(error => {
             console.error(error);
@@ -56,7 +57,11 @@ const SettingsPage = () => {
                 }
             )
             .then(() => {
-                if(field !== 'password' && field !== 'currency') setUserData({ ...userData, [field]: updatedValue });
+                if(field !== 'password' && field !== 'currency') {
+                    setUserData({ ...userData, [field]: updatedValue });
+                } else if(field === 'currency'){
+                    localStorage.setItem('currency', currency);
+                }
                 setEditingField(null);
                 setSuccess(`${field === 'password' ? 'Password' : field} updated successfully!`);
                 setError(null);
@@ -66,6 +71,11 @@ const SettingsPage = () => {
                 setError(`Failed to update ${field}.`);
                 setSuccess(null);
             });
+    };
+
+    const handleCurrencyChange = () => {
+        localStorage.setItem('currency', currency);
+        setSuccess('Currency updated successfully!');
     };
 
     const handleCancel = () => {
@@ -258,7 +268,7 @@ const SettingsPage = () => {
                                 <option value="EUR">EUR</option>
                                 <option value="PLN">PLN</option>
                             </select>
-                            <button className="add-product-btn" onClick={() => handleUpdate('currency')}>Change</button>
+                            <button className="add-product-btn" onClick={handleCurrencyChange}>Change</button>
                         </div>
                     </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../components/currencyUtils';
 
 const OrdersTable = ({ orders }) => {
     if (!Array.isArray(orders) || orders.length === 0) {
@@ -25,7 +26,7 @@ const OrdersTable = ({ orders }) => {
                         <td>
                             {order.orderDate}
                         </td>
-                        <td>{order.orderAmount?.toFixed(2)}</td>
+                        <td>{formatCurrency(order.orderAmount)}</td>
                         <td>{order.orderStatus}</td>
                         <td>{order.customerName}</td>
                     </tr>

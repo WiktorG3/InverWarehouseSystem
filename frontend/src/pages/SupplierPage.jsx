@@ -60,8 +60,7 @@ const SupplierPage = () => {
                 <div className="supplier-page-content">
                     <div className="supplier-page-header">
                         <div className="header-left">
-                            <span>All</span>
-                            <span>Categories</span>
+                            <span>Suppliers</span>
                         </div>
 
                         <div className="header-right">

@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatCurrency } from '../components/currencyUtils';
 
 const ProductsTable = ({ products, onEdit, onDelete }) => {
     if (!Array.isArray(products) || products.length === 0) {
@@ -26,7 +27,7 @@ const ProductsTable = ({ products, onEdit, onDelete }) => {
                         <td>{product.name}</td>
                         <td>{product.category}</td>
                         <td>{product.brand}</td>
-                        <td>{product.price.toFixed(2)}</td>
+                        <td>{formatCurrency(product.price)}</td>
                         <td>{product.quantity}</td>
                         <td>
                             <button className="action-btn" onClick={() => onEdit(product)}>

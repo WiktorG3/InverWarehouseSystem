@@ -36,7 +36,6 @@ const OrderPage = () => {
                     <div className="order-page-header">
                         <div className="header-left">
                             <span>Orders</span>
-                            <span>Categories</span>
                         </div>
 
                         <div className="header-right">
