@@ -7,6 +7,8 @@ The system is designed to manage warehouse operations, including tracking invent
 **IMPORTANT**: The system does not support adding new orders (Order and Order_items), these things should be handled by a connected online store. The warehouse system is responsible only for managing inventory and related operations. 
 Also, in this project, I intentionally did not use external environment variables for configuration.
 
+![image](https://github.com/user-attachments/assets/f0320f29-4263-4aed-a055-a51143d9b8f7)
+
 ![image](https://github.com/user-attachments/assets/d6215c7f-3be5-45e8-b323-16eef87ffe41)
 
 ![image](https://github.com/user-attachments/assets/286c1d0f-1564-4f4a-ab2d-01c9ae81f934)
