@@ -9,7 +9,8 @@ Also, in this project, I intentionally did not use external environment variable
 
 ![image](https://github.com/user-attachments/assets/d6215c7f-3be5-45e8-b323-16eef87ffe41)
 
-![image](https://github.com/user-attachments/assets/0711e742-a604-4374-9a74-51fdacb8e4d2)
+![image](https://github.com/user-attachments/assets/286c1d0f-1564-4f4a-ab2d-01c9ae81f934)
+
 
 ## **Features**
 * Users register with an username, email, first name, last name, password.
