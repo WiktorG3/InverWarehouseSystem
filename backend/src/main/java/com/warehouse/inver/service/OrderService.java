@@ -45,9 +45,9 @@ public class OrderService {
     }
 
     public BigDecimal getTotalOrderAmount() {
-        return orderRepository.getTotalOrderAmount()
-                .orElse(BigDecimal.ZERO);
+        return orderRepository.getTotalOrderAmount() != null ? orderRepository.getTotalOrderAmount() : BigDecimal.ZERO;
     }
+
 
     public Page<Order> searchOrders(String searchTerm, Pageable pageable) {
         return orderRepository.searchOrders(searchTerm.toLowerCase(), pageable);
@@ -132,5 +132,18 @@ public class OrderService {
                     result.put("count", (Long) row[1]);
                     return result;
                 }).toList();
+    }
+
+
+
+    public List<Map<String, Object>> getRevenueVsCosts() {
+        return orderRepository.getMonthlyRevenueAndCosts()
+                .stream()
+                .map(result -> Map.of(
+                        "month", result[0],
+                        "costs", result[1] != null ? result[1] : BigDecimal.ZERO,
+                        "revenue", result[2] != null ? result[2] : BigDecimal.ZERO
+                ))
+                .collect(Collectors.toList());
     }
 }

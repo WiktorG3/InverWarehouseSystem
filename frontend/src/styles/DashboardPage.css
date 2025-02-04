@@ -94,3 +94,20 @@
     color: #374151;
     margin-bottom: 1rem;
 }
+
+.today-orders-list {
+    list-style: none;
+    padding: 0;
+}
+
+.today-orders-list li {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.chart-wrapper {
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+}

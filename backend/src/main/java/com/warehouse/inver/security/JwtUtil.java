@@ -36,7 +36,7 @@ public class JwtUtil {
     public boolean validateToken(String token)  {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            System.out.println("Token jest poprawny.");
+            //System.out.println("Token jest poprawny.");
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             System.out.println("Błąd walidacji tokena: " + e.getMessage());

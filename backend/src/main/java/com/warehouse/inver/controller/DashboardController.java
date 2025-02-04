@@ -6,9 +6,7 @@ import com.warehouse.inver.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.warehouse.inver.model.Order;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +33,8 @@ public class DashboardController {
         data.put("totalProducts", productService.getTotalProductCount());
         data.put("todayOrders", orderService.getOrdersByDate(LocalDate.now()).size());
 
-
+        data.put("revenueVsCosts", orderService.getRevenueVsCosts());
+        data.put("todayOrdersList", orderService.getOrdersByDate(LocalDate.now()));
         return data;
     }
 }
